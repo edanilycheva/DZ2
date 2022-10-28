@@ -17,19 +17,18 @@ public class SoftAssertionsTest {
 
 //        - Откройте страницу Selenide в Github
         open("https://github.com/");
-        $("[data-test-selector=\"nav-search-input\"]").setValue("selenide").pressEnter();
-        $$("ul.repo-list li").first().$("a").click();
+        $("[data-test-selector='nav-search-input']").setValue("selenide").pressEnter();
+        $$(".repo-list-item").findBy(text("selenide/selenide")).$("a").click();
 
 //        - Перейдите в раздел Wiki проекта
         $("#wiki-tab").click();
-        sleep(5000);
 
 //        - Убедитесь, что в списке страниц (Pages) есть страница SoftAssertions
-        $("#wiki-pages-box ul").scrollTo();
-        $("#wiki-pages-box ul li button").click();
-        $("#wiki-pages-box").shouldHave(text("SoftAssertions"));
+        $(".Box-row.wiki-more-pages-link button").click();
+
 //        - Откройте страницу SoftAssertions, проверьте что внутри есть пример кода для JUnit5
-        $$("#wiki-pages-box ul li").findBy(text("SoftAssertions")).click();
-        $("#wiki-content").shouldHave(text("Using JUnit5 extend test class"));
+        $$(".Box-row.wiki-more-pages").findBy(text("SoftAssertions")).click();
+        $$("h4").findBy(text("Using JUnit5 extend test class")).sibling(0).shouldHave(text("SoftAssertsExtension"));
+
     }
 }
